@@ -188,40 +188,4 @@ export const POST = async (
   }
 };
 
-export const DELELTE = async (
-  req: NextRequest,
-  { params }: { params: { productId: string } }
-) => {
-  try {
-    const { userId } = auth();
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
-
-    await connectToDB();
-
-    const product = await Product.findById(params.productId);
-
-    if (!product)
-      return new NextResponse(
-        JSON.stringify({ message: "Product not found" }),
-        { status: 404 }
-      );
-
-    await Product.findByIdAndDelete(params.productId);
-
-    // update collection
-    await Promise.all(
-      product.collections.map((collectionId: string) =>
-        Collection.findByIdAndUpdate(collectionId, {
-          $pull: { products: product._id },
-        })
-      )
-    );
-
-    return new NextResponse("Product is deleted", { status: 200 });
-  } catch (error) {
-    console.log("productId_DELETE", error);
-    return new NextResponse("Internal server error", { status: 500 });
-  }
-};
-
 export const dynamic = "force-dynamic";
