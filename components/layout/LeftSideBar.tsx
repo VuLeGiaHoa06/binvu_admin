@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
 import { navLinks } from "@/lib/constant";
+import { CircleUserRound } from "lucide-react";
 
 const LeftSideBar = () => {
+  const { user } = useUser();
   const pathname = usePathname();
   return (
     <div className="h-screen flex flex-col w-[300px] left-0 top-0 sticky max-lg:hidden bg-blue-2 shadow-xl p-10 gap-16">
@@ -28,7 +30,13 @@ const LeftSideBar = () => {
       </div>
 
       <div className="flex gap-4 items-center">
-        <UserButton />
+        {user ? (
+          <UserButton />
+        ) : (
+          <Link href={"/sign-in"}>
+            <CircleUserRound />
+          </Link>
+        )}
         <span className="text-body-medium">Edit profile</span>
       </div>
     </div>
