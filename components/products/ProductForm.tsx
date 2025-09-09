@@ -109,11 +109,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       if (res.ok) {
         setLoading(false);
         toast.success(`Product ${initialData ? "updated" : "created"}`);
-        // router.push("/products");
-        // router.refresh();
-
-        window.location.href = "/products";
         router.push("/products");
+        router.refresh();
+
+        // window.location.href = "/products";
+        // router.push("/products");
       }
     } catch (error) {
       console.log("Products_POST", error);

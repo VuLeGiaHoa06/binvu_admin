@@ -10,7 +10,6 @@ import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import { string } from "zod";
 
 export const DELETE = async (
   req: NextRequest,
@@ -64,11 +63,11 @@ export const GET = async (
     // 3. return data for user
     return new NextResponse(JSON.stringify(product), {
       status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
-        "Access-Control-Allow-Methods": "GET",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
+      // headers: {
+      //   "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
+      //   "Access-Control-Allow-Methods": "GET",
+      //   "Access-Control-Allow-Headers": "Content-Type",
+      // },
     });
   } catch (error) {
     console.log("productId_GET", error);

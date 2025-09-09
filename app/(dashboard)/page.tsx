@@ -13,7 +13,7 @@ export default async function Home() {
   const totalOrders = await getTotalSales().then((data) => data?.totalOrders);
   const totalCustomers = await getTotalCustomers();
 
-  const graphData = await getSalesPerMonth(); // dont use yet
+  const graphData = await getSalesPerMonth();
   return (
     <div className="flex flex-col gap-4 p-10">
       <h1 className="text-heading2-bold">Dashboard</h1>
