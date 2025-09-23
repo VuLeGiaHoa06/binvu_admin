@@ -48,7 +48,7 @@ const TopBar = () => {
           onClick={() => setdropdownMenu((prev) => !prev)}
         />
         {dropdownMenu && (
-          <div className="flex flex-col md:hidden gap-6 absolute top-10 right-6 bg-white p-6 text-grey-1 text-body-semibold rounded-lg shadow-xl">
+          <div className="flex flex-col md:hidden gap-6 absolute top-[70px] right-[50px] bg-white p-6 text-grey-1 text-body-semibold rounded-lg shadow-xl">
             {navLinks.map((link) => (
               <Link
                 href={link.url}
