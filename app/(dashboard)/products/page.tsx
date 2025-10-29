@@ -42,7 +42,7 @@ const Products = () => {
   // console.log("products", products);
 
   return (
-    <div className="p-10 flex flex-col ">
+    <div className="p-10 flex flex-col">
       <div className="flex justify-between">
         <h1 className="text-heading2-bold">Products</h1>
         <Button

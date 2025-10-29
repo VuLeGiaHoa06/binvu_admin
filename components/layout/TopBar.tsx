@@ -13,18 +13,18 @@ import { navLinks } from "@/lib/constant";
 const TopBar = () => {
   const [dropdownMenu, setdropdownMenu] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   return (
     <div className="sticky top-0 z-20 w-full px-8 py-4 shadow-xl flex justify-between lg:hidden bg-blue-2">
-      <Image
-        className="object-contain cursor-pointer w-[150px] h-[100px]"
-        src={logo}
-        alt="logo"
-        width={150}
-        height={100}
-        onClick={() => router.push("/")}
-      />
+      <Link href={"/"}>
+        <Image
+          className="object-cover w-[100px] h-[50px]"
+          src={logo}
+          alt="logo"
+          width={150}
+          height={100}
+        />
+      </Link>
 
       <div className="flex gap-4 max-md:hidden">
         {navLinks.map((link) => (

@@ -31,7 +31,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 p-10">
+    <div className="flex flex-col p-10">
       <h1 className="text-heading2-bold">Orders</h1>
       <Separator className="bg-grey-1 mb-8 mt-4" />
       {isLoading ? (

@@ -6,13 +6,22 @@ import { usePathname } from "next/navigation";
 
 import { navLinks } from "@/lib/constant";
 import { CircleUserRound } from "lucide-react";
+import logo from "@/public/logo.png";
 
 const LeftSideBar = () => {
   const { user } = useUser();
   const pathname = usePathname();
   return (
-    <div className="h-screen flex flex-col w-[300px] left-0 top-0 sticky max-lg:hidden bg-blue-2 shadow-xl p-10 gap-16">
-      <Image src={"/logo.png"} alt="logo" width={200} height={200} />
+    <div className="h-screen flex flex-col w-[300px] left-0 top-0 sticky max-lg:hidden bg-blue-2 shadow-xl p-10 gap-12">
+      <Link href={"/"}>
+        <Image
+          src={logo}
+          alt="logo"
+          width={200}
+          height={200}
+          className="w-[200px] h-[100px]  object-cover"
+        />
+      </Link>
 
       <div className="flex flex-col gap-12">
         {navLinks.map((link) => (
@@ -29,16 +38,10 @@ const LeftSideBar = () => {
         ))}
       </div>
 
-      <div className="flex gap-4 items-center">
-        {user ? (
-          <UserButton />
-        ) : (
-          <Link href={"/sign-in"}>
-            <CircleUserRound />
-          </Link>
-        )}
+      <Link href={"/sign-in"} className="flex gap-4 items-center">
+        {user ? <UserButton /> : <CircleUserRound />}
         <span className="text-body-medium">Edit profile</span>
-      </div>
+      </Link>
     </div>
   );
 };
