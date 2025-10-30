@@ -25,9 +25,13 @@ import Delete from "../custom ui/Delete";
 import MultiText from "../custom ui/MultiText";
 import MultiSelect from "../custom ui/MultiSelect";
 import Loader from "../custom ui/Loader";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(20),
+  title: z
+    .string()
+    .min(2, { error: "Title must be required at least 2 characters" })
+    .max(50),
   description: z.string().min(2).max(500).trim(),
   media: z.array(z.string()),
   category: z.string(),
@@ -36,6 +40,7 @@ const formSchema = z.object({
   sizes: z.array(z.string()),
   colors: z.array(z.string()),
   price: z.coerce.number().min(0.1),
+  orgPrice: z.coerce.number().min(0.1),
   expense: z.coerce.number().min(0.1),
 });
 
@@ -67,11 +72,12 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           sizes: [],
           colors: [],
           price: 0.1,
+          orgPrice: 0.1,
           expense: 0.1,
         },
   });
 
-  console.log("initialData", initialData);
+  const { isValid, isSubmitting } = form.formState;
 
   const getCollections = async () => {
     try {
@@ -216,6 +222,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Price"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="orgPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Orginal Price</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -375,8 +399,17 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             />
           </div>
           <div className="flex gap-4">
-            <Button className="bg-blue-1 text-white" type="submit">
-              {initialData ? "Update" : "Submit"}
+            <Button
+              disabled={!isValid || isSubmitting}
+              className="bg-blue-1 text-white"
+              type="submit"
+            >
+              {isSubmitting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <p>{initialData ? "Update" : "Submit"}</p>
+              )}
+              {/* {initialData ? "Update" : "Submit"} */}
             </Button>
             <Button
               className="bg-blue-1 text-white"

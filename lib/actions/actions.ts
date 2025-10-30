@@ -9,9 +9,9 @@ export const getTotalSales = async () => {
 
     const totalOrders = orders.length;
 
-    const totalRevenue = Math.round(
+    const totalRevenue = Number.parseFloat(
       orders.reduce((acc, order) => acc + order.totalAmount, 0)
-    );
+    ).toFixed(2);
 
     return { totalOrders, totalRevenue };
   } catch (error) {

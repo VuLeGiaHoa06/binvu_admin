@@ -9,7 +9,6 @@ export const POST = async (req: NextRequest) => {
   try {
     const { userId } = auth();
 
-
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
     await connectToDB();
@@ -24,10 +23,19 @@ export const POST = async (req: NextRequest) => {
       sizes,
       colors,
       price,
+      orgPrice,
       expense,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price || !expense) {
+    if (
+      !title ||
+      !description ||
+      !media ||
+      !category ||
+      !price ||
+      !orgPrice ||
+      !expense
+    ) {
       return new NextResponse("Not enough data to create a product", {
         status: 400,
       });
@@ -43,6 +51,7 @@ export const POST = async (req: NextRequest) => {
       sizes,
       colors,
       price,
+      orgPrice,
       expense,
     });
 

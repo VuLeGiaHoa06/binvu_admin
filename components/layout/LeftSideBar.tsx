@@ -38,10 +38,16 @@ const LeftSideBar = () => {
         ))}
       </div>
 
-      <Link href={"/sign-in"} className="flex gap-4 items-center">
-        {user ? <UserButton /> : <CircleUserRound />}
+      <div className="flex gap-4 items-center">
+        {user ? (
+          <UserButton afterSignOutUrl="/sign-in" />
+        ) : (
+          <Link href={"/sign-in"}>
+            <CircleUserRound />
+          </Link>
+        )}
         <span className="text-body-medium">Edit profile</span>
-      </Link>
+      </div>
     </div>
   );
 };

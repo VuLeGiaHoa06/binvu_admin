@@ -1,9 +1,9 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
+import { useAuth, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { CircleUserIcon, CircleUserRoundIcon, Menu } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import logo from "../../public/logo.png";
@@ -13,6 +13,10 @@ import { navLinks } from "@/lib/constant";
 const TopBar = () => {
   const [dropdownMenu, setdropdownMenu] = useState(false);
   const pathname = usePathname();
+  const { userId } = useAuth();
+  const router = useRouter();
+
+  if (!userId) return router.push("/sign-in");
 
   return (
     <div className="sticky top-0 z-20 w-full px-8 py-4 shadow-xl flex justify-between lg:hidden bg-blue-2">
@@ -64,7 +68,11 @@ const TopBar = () => {
           </div>
         )}
 
-        <UserButton />
+        {userId ? (
+          <UserButton afterSignOutUrl="/sign-in" />
+        ) : (
+          <CircleUserRoundIcon className="h-4 w-4" />
+        )}
       </div>
     </div>
   );
