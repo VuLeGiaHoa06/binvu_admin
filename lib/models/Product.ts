@@ -18,15 +18,11 @@ const ProductSchema = new mongoose.Schema(
     },
     orgPrice: {
       type: mongoose.Schema.Types.Decimal128,
-      set: (v: any) => {
-        if (v === undefined || v === null) return undefined;
-        return mongoose.Types.Decimal128.fromString(v.toString());
-      },
       get: (v: mongoose.Schema.Types.Decimal128) => {
-        if (!v) return null;
         return parseFloat(v.toString());
       },
     },
+
     expense: {
       type: mongoose.Schema.Types.Decimal128,
       get: (v: mongoose.Schema.Types.Decimal128) => {
