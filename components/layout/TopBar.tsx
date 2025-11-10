@@ -4,7 +4,7 @@ import { useAuth, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { CircleUserIcon, CircleUserRoundIcon, Menu } from "lucide-react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import logo from "../../public/logo.png";
 
@@ -16,7 +16,10 @@ const TopBar = () => {
   const { userId } = useAuth();
   const router = useRouter();
 
-  if (!userId) return router.push("/sign-in");
+  if (!userId) {
+    router.push("/sign-in");
+    return;
+  }
 
   return (
     <div className="sticky top-0 z-20 w-full px-8 py-4 shadow-xl flex justify-between lg:hidden bg-blue-2">
